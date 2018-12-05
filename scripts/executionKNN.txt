@@ -1,0 +1,52 @@
+C:\Users\Roger\Python\Scripts\python.exe C:/Users/Roger/IdeaProjects/DataMining-Classification/scripts/src/KNN.py
+   age        job  marital      ...       nr.employed   y prev_contacted
+0   56  housemaid  married      ...            5191.0  no             no
+1   57   services  married      ...            5191.0  no             no
+2   37   services  married      ...            5191.0  no             no
+3   40     admin.  married      ...            5191.0  no             no
+4   56   services  married      ...            5191.0  no             no
+
+[5 rows x 21 columns]
+   age  job  marital       ...        nr.employed  y  prev_contacted
+0   56    3        1       ...             5191.0  0               0
+1   57    7        1       ...             5191.0  0               0
+2   37    7        1       ...             5191.0  0               0
+3   40    0        1       ...             5191.0  0               0
+4   56    7        1       ...             5191.0  0               0
+
+[5 rows x 21 columns]
+{'job': LabelEncoder(), 'marital': LabelEncoder(), 'education': LabelEncoder(), 'default': LabelEncoder(), 'housing': LabelEncoder(), 'loan': LabelEncoder(), 'contact': LabelEncoder(), 'month': LabelEncoder(), 'day_of_week': LabelEncoder(), 'poutcome': LabelEncoder(), 'y': LabelEncoder(), 'prev_contacted': LabelEncoder()}
+(41188, 20)
+(41188,)
+Score Cross-validation: 0.8891316662620377
+
+Confusion Matrix:
+          pred:yes  pred:no
+true:yes       365     1048
+true:no        322    10622
+
+Report metrics:
+              precision    recall  f1-score   support
+
+           0       0.91      0.97      0.94     10944
+           1       0.53      0.26      0.35      1413
+
+   micro avg       0.89      0.89      0.89     12357
+   macro avg       0.72      0.61      0.64     12357
+weighted avg       0.87      0.89      0.87     12357
+
+StratifiedKfold K-cross-Validation
+0.7235752983042961
+Millorem knn, normalització:
+new accuracy: 0.7360077165237534
+
+Effect of irrelevant columns:
+
+Searching best K features plot...
+K best feature:19 accuracy:0.7585618582951275
+
+Searching best parameters for KNN
+
+Best Params= {'n_neighbors': 29, 'weights': 'uniform'} Accuracy= 0.8072011265417112
+
+Process finished with exit code 0
