@@ -37,7 +37,7 @@ for(column in names(data_proc)){
     res <- ks.test(train_y[,column], data_proc_y[,column])
     res2 <- ks.test(train_n[,column], data_proc_n[,column])
     res3 <- ks.test(test_y[,column], data_proc_y[,column])
-    res4 <- ks.test(train_n[,column], data_proc_n[,column])
+    res4 <- ks.test(test_n[,column], data_proc_n[,column])
     print(res)
     print(res2)
     print(res3)
