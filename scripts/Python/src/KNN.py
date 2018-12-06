@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt  # per imprimir plots
 import numpy as np
 import utils
 import sklearn.model_selection as cva  # Pel Cross-validation
+from sklearn.metrics import f1_score
+from sklearn.metrics import fbeta_score, make_scorer
 
 
 def read_csv(url):
@@ -35,6 +37,7 @@ def main():
     # Load digits dataset from scikit
     url_learn = "../../../data/learning/BankCleanLearn.csv"
     url_test = "../../../data/test/BankCleanTest.csv"
+    f_scorer = make_scorer(f1_score, pos_label=0)
 
     (dades, X, y) = read_csv(url_learn)
 
@@ -60,7 +63,7 @@ def main():
     print("StratifiedKfold K-cross-Validation")
     cv = StratifiedKFold(n_splits=10, random_state=1)
 
-    cv_scores = cross_val_score(nb.KNeighborsClassifier(), X=X, y=y, cv=cv, scoring='accuracy', n_jobs=-1)
+    cv_scores = cross_val_score(nb.KNeighborsClassifier(), X=X, y=y, cv=cv, scoring=f_scorer, n_jobs=-1)
     print(np.mean(cv_scores))
 
     # MILLOREM EL KNN
@@ -69,7 +72,7 @@ def main():
     # One way is to standarize all data mean 0, std 1
     scaler = preprocessing.StandardScaler().fit(X)
     X2 = scaler.transform(X)
-    cv_scores = cross_val_score(nb.KNeighborsClassifier(), X=X2, y=y, cv=cv, scoring='accuracy', n_jobs=-1)
+    cv_scores = cross_val_score(nb.KNeighborsClassifier(), X=X2, y=y, cv=cv, scoring=f_scorer, n_jobs=-1)
     print("new accuracy: %s\n" % (np.mean(cv_scores)))
     # Irrelevant columns
     print("Effect of irrelevant columns:\n")
@@ -96,7 +99,7 @@ def main():
         if i == 'y':
             continue
         X_new = SelectKBest(mutual_info_classif, k=contador + 1).fit_transform(X2, y)
-        cv_scores = cross_val_score(nb.KNeighborsClassifier(), X=X_new, y=y, cv=cv, scoring='accuracy', n_jobs=-1)
+        cv_scores = cross_val_score(nb.KNeighborsClassifier(), X=X_new, y=y, cv=cv, scoring=f_scorer, n_jobs=-1)
         if len(original) > 0 and np.mean(cv_scores) >= max(original):
             k_max = contador + 1
             X_new_best = X_new
@@ -111,35 +114,35 @@ def main():
     X_new = X_new_best
     # # Buscarem els millors parametres PLOT:
     # # OJO! d'aqui fins al final TRIGA MOOOOLT i utilitza tots els nuclis
-    # lr = []
-    # for ki in range(1, 30, 2):
-    #     cv_scores = cross_val_score(nb.KNeighborsClassifier(n_neighbors=ki), X=X_new, y=y, cv=10)
-    #     lr.append(np.mean(cv_scores))
-    # plt.plot(range(1, 30, 2), lr, 'b', label='No weighting')
+    lr = []
+    for ki in range(1, 30, 2):
+        cv_scores = cross_val_score(nb.KNeighborsClassifier(n_neighbors=ki), X=X_new, y=y, cv=10)
+        lr.append(np.mean(cv_scores))
+    plt.plot(range(1, 30, 2), lr, 'b', label='No weighting')
+
+    lr = []
+    for ki in range(1, 30, 2):
+        cv_scores = cross_val_score(nb.KNeighborsClassifier(n_neighbors=ki, weights='distance'), X=X_new, y=y, cv=10)
+        lr.append(np.mean(cv_scores))
+    plt.plot(range(1, 30, 2), lr, 'r', label='Weighting')
+    plt.xlabel('k')
+    plt.ylabel('Accuracy')
+    plt.legend(loc='upper right')
+    plt.grid()
+    plt.tight_layout()
+    plt.show()
     #
-    # lr = []
-    # for ki in range(1, 30, 2):
-    #     cv_scores = cross_val_score(nb.KNeighborsClassifier(n_neighbors=ki, weights='distance'), X=X_new, y=y, cv=10)
-    #     lr.append(np.mean(cv_scores))
-    # plt.plot(range(1, 30, 2), lr, 'r', label='Weighting')
-    # plt.xlabel('k')
-    # plt.ylabel('Accuracy')
-    # plt.legend(loc='upper right')
-    # plt.grid()
-    # plt.tight_layout()
-    # plt.show()
-    #
-    # # Busquem els millors parametres amb un GridSearch
-    # print("Searching best parameters for KNN\n")
-    # params = {'n_neighbors': list(range(1, 30, 2)), 'weights': ('distance', 'uniform')}
-    # knc = nb.KNeighborsClassifier()
-    # clf = GridSearchCV(knc, param_grid=params, cv=cv, n_jobs=-1)  # If cv is integer, by default is Stratifyed
-    # clf.fit(X_new, y)
-    # print("Best Params=", clf.best_params_, "Accuracy=", clf.best_score_)
+    # Busquem els millors parametres amb un GridSearch
+    print("Searching best parameters for KNN\n")
+    params = {'n_neighbors': list(range(1, 30, 2)), 'weights': ('distance', 'uniform')}
+    knc = nb.KNeighborsClassifier()
+    clf = GridSearchCV(knc, param_grid=params, cv=cv, n_jobs=-1, scoring=f_scorer)  # If cv is integer, by default is Stratifyed
+    clf.fit(X_new, y)
+    print("Best Params=", clf.best_params_, "Accuracy=", clf.best_score_)
 
     # Ja tenim els millors parametres, ara hem de testejar-ho
-    knc_test = nb.KNeighborsClassifier(n_neighbors=29, weights='uniform')
-    knc_test.fit(X_new, y)
+    knc_test = nb.KNeighborsClassifier(n_neighbors=clf.best_params_['n_neighbors'], weights=clf.best_params_['weights'])
+    knc_test.fit(X, y)
     (dades_test, X_testing, y_testing) = read_csv(url_test)
     print("Results without: ", knc_test.score(X_testing, y_testing))
     # More information with confussion matrix
