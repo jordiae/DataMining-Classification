@@ -68,6 +68,6 @@ for(column in names(data_proc)){
 }
 if(contador != length(names(data_proc))) print("error!");
 write.table(test,file ="../../data/test/BankCleanTest.csv",row.names=FALSE,col.names=TRUE,sep=";")
-write.table(train,file = "../../data/training/BankCleanTrain.csv",row.names=FALSE,col.names=TRUE,sep=";")
+write.table(train,file = "../../data/learning/BankCleanLearn.csv",row.names=FALSE,col.names=TRUE,sep=";")
 
 #done
