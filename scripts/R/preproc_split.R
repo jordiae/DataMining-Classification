@@ -33,13 +33,18 @@ test_n = test[test$y == 'no',]
 contador <- 0
 for(column in names(data_proc)){
   if(is.numeric(data_proc[,column])){
+    print(column)
     res <- ks.test(train_y[,column], data_proc_y[,column])
     res2 <- ks.test(train_n[,column], data_proc_n[,column])
     res3 <- ks.test(test_y[,column], data_proc_y[,column])
     res4 <- ks.test(train_n[,column], data_proc_n[,column])
+    print(res)
+    print(res2)
+    print(res3)
+    print(res4)
     if(res$p.value <= 0.5 || res4$p.value <= 0.5 || res3$p.value <= 0.5 || res2$p.value <= 0.5) break;
   }else{
-    print(column)
+    #print(column)
     png(paste(path,column,"_histogram_proc_y.png",sep = ""))
     plot(histogram(data_proc_y[,column]))
     dev.off()
@@ -62,7 +67,7 @@ for(column in names(data_proc)){
   contador <- contador + 1
 }
 if(contador != length(names(data_proc))) print("error!");
-write.table(test,file ="../data/BankCleanTest.csv",row.names=FALSE,col.names=TRUE,sep=";")
-write.table(train,file = "../data/BankCleanTrain.csv",row.names=FALSE,col.names=TRUE,sep=";")
+write.table(test,file ="../../data/test/BankCleanTest.csv",row.names=FALSE,col.names=TRUE,sep=";")
+write.table(train,file = "../../data/training/BankCleanTrain.csv",row.names=FALSE,col.names=TRUE,sep=";")
 
 #done
