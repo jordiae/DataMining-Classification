@@ -1,3 +1,121 @@
+[1] "age"
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_y[, column] and data_proc_y[, column]
+D = 0.0056342, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.002091, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  test_y[, column] and data_proc_y[, column]
+D = 0.013147, p-value = 0.9926
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.002091, p-value = 1
+alternative hypothesis: two-sided
+
+[1] "campaign"
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_y[, column] and data_proc_y[, column]
+D = 0.0033867, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.0029093, p-value = 0.9996
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  test_y[, column] and data_proc_y[, column]
+D = 0.0079023, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.0029093, p-value = 0.9996
+alternative hypothesis: two-sided
+
+[1] "pdays"
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_y[, column] and data_proc_y[, column]
+D = 0.0080357, p-value = 0.9997
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.00069955, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  test_y[, column] and data_proc_y[, column]
+D = 0.01875, p-value = 0.8459
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.00069955, p-value = 1
+alternative hypothesis: two-sided
+
+[1] "previous"
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_y[, column] and data_proc_y[, column]
+D = 0.010252, p-value = 0.988
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.00061581, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  test_y[, column] and data_proc_y[, column]
+D = 0.023922, p-value = 0.5724
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.00061581, p-value = 1
+alternative hypothesis: two-sided
+
+[1] "emp.var.rate"
+
 	Two-sample Kolmogorov-Smirnov test
 
 data:  train_y[, column] and data_proc_y[, column]
@@ -25,6 +143,7 @@ data:  train_n[, column] and data_proc_n[, column]
 D = 0.0020416, p-value = 1
 alternative hypothesis: two-sided
 
+[1] "cons.price.idx"
 
 	Two-sample Kolmogorov-Smirnov test
 
@@ -53,6 +172,7 @@ data:  train_n[, column] and data_proc_n[, column]
 D = 0.0021199, p-value = 1
 alternative hypothesis: two-sided
 
+[1] "cons.conf.idx"
 
 	Two-sample Kolmogorov-Smirnov test
 
@@ -81,6 +201,7 @@ data:  train_n[, column] and data_proc_n[, column]
 D = 0.001764, p-value = 1
 alternative hypothesis: two-sided
 
+[1] "euribor3m"
 
 	Two-sample Kolmogorov-Smirnov test
 
@@ -109,6 +230,7 @@ data:  train_n[, column] and data_proc_n[, column]
 D = 0.0020609, p-value = 1
 alternative hypothesis: two-sided
 
+[1] "nr.employed"
 
 	Two-sample Kolmogorov-Smirnov test
 
