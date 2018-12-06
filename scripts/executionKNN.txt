@@ -1,0 +1,73 @@
+C:\Users\Roger\Python\Scripts\python.exe C:\Users\Roger\.IntelliJIdea2018.3\config\plugins\python\helpers\pydev\pydevconsole.py --mode=client --port=55693
+import sys; print('Python %s on %s' % (sys.version, sys.platform))
+sys.path.extend(['C:\\Users\\Roger\\IdeaProjects\\DataMining-Classification', 'C:/Users/Roger/IdeaProjects/DataMining-Classification'])
+PyDev console: starting.
+Python 3.7.1 (v3.7.1:260ec2c36a, Oct 20 2018, 14:57:15) [MSC v.1915 64 bit (AMD64)] on win32
+runfile('C:/Users/Roger/IdeaProjects/DataMining-Classification/scripts/Python/src/KNN.py', wdir='C:/Users/Roger/IdeaProjects/DataMining-Classification/scripts/Python/src')
+   age          job  marital      ...       nr.employed   y prev_contacted
+0   56    housemaid  married      ...            5191.0  no             no
+1   59       admin.  married      ...            5191.0  no             no
+2   41  blue-collar  married      ...            5191.0  no             no
+3   25     services   single      ...            5191.0  no             no
+4   29  blue-collar   single      ...            5191.0  no             no
+[5 rows x 21 columns]
+   age  job  marital       ...        nr.employed  y  prev_contacted
+0   56    3        1       ...             5191.0  0               0
+1   59    0        1       ...             5191.0  0               0
+2   41    1        1       ...             5191.0  0               0
+3   25    7        2       ...             5191.0  0               0
+4   29    1        2       ...             5191.0  0               0
+[5 rows x 21 columns]
+{'job': LabelEncoder(), 'marital': LabelEncoder(), 'education': LabelEncoder(), 'default': LabelEncoder(), 'housing': LabelEncoder(), 'loan': LabelEncoder(), 'contact': LabelEncoder(), 'month': LabelEncoder(), 'day_of_week': LabelEncoder(), 'poutcome': LabelEncoder(), 'y': LabelEncoder(), 'prev_contacted': LabelEncoder()}
+(28832, 20)
+(28832,)
+Score Cross-validation: 0.89121387283237
+Confusion Matrix:
+          pred:yes  pred:no
+true:yes       248      695
+true:no        246     7461
+Report metrics:
+              precision    recall  f1-score   support
+           0       0.91      0.97      0.94      7707
+           1       0.50      0.26      0.35       943
+   micro avg       0.89      0.89      0.89      8650
+   macro avg       0.71      0.62      0.64      8650
+weighted avg       0.87      0.89      0.88      8650
+StratifiedKfold K-cross-Validation
+0.8096367782292122
+Millorem knn, normalització:
+new accuracy: 0.8286594901443968
+Effect of irrelevant columns:
+Searching best K features plot...
+K best feature:20 accuracy:0.8286594901443968
+Searching best parameters for KNN
+Best Params= {'n_neighbors': 29, 'weights': 'uniform'} Accuracy= 0.8765818328040015
+   age       job  marital      ...       nr.employed   y prev_contacted
+0   57  services  married      ...            5191.0  no             no
+1   37  services  married      ...            5191.0  no             no
+2   40    admin.  married      ...            5191.0  no             no
+3   56  services  married      ...            5191.0  no             no
+4   45  services  married      ...            5191.0  no             no
+[5 rows x 21 columns]
+   age  job  marital       ...        nr.employed  y  prev_contacted
+0   57    7        1       ...             5191.0  0               0
+1   37    7        1       ...             5191.0  0               0
+2   40    0        1       ...             5191.0  0               0
+3   56    7        1       ...             5191.0  0               0
+4   45    7        1       ...             5191.0  0               0
+[5 rows x 21 columns]
+{'job': LabelEncoder(), 'marital': LabelEncoder(), 'education': LabelEncoder(), 'default': LabelEncoder(), 'housing': LabelEncoder(), 'loan': LabelEncoder(), 'contact': LabelEncoder(), 'month': LabelEncoder(), 'day_of_week': LabelEncoder(), 'poutcome': LabelEncoder(), 'y': LabelEncoder(), 'prev_contacted': LabelEncoder()}
+(12356, 20)
+(12356,)
+Results without:  0.9008578828099708
+Confusion Matrix:
+          pred:yes  pred:no
+true:yes       337     1055
+true:no        170    10794
+Report metrics:
+              precision    recall  f1-score   support
+           0       0.91      0.98      0.95     10964
+           1       0.66      0.24      0.35      1392
+   micro avg       0.90      0.90      0.90     12356
+   macro avg       0.79      0.61      0.65     12356
+weighted avg       0.88      0.90      0.88     12356
