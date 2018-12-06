@@ -14,7 +14,7 @@ import numpy as np
 import utils
 
 # Load digits dataset from scikit
-url = "../../data/BankClean.csv"
+url = "../../../data/clean/BankClean.csv"
 dades = pd.read_csv(url, header=0, sep=";")
 print(dades.head())
 
@@ -99,6 +99,7 @@ plt.show()
 print("K best feature:%s accuracy:%s\n" % (k_max, max(original)))
 # K best features es 19, sembla que hi ha una feature que esta afegint error
 X_new = X_new_best
+# Buscarem els millors parametres PLOT:
 # OJO! d'aqui fins al final TRIGA MOOOOLT i utilitza tots els nuclis
 lr = []
 for ki in range(1, 30, 2):
@@ -117,7 +118,6 @@ plt.legend(loc='upper right')
 plt.grid()
 plt.tight_layout()
 plt.show()
-# Buscarem els millors parametres PLOT:
 
 # Busquem els millors parametres amb un GridSearch
 print("Searching best parameters for KNN\n")
