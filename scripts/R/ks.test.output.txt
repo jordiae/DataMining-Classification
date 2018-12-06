@@ -1,0 +1,138 @@
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_y[, column] and data_proc_y[, column]
+D = 0.0070505, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.0020416, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  test_y[, column] and data_proc_y[, column]
+D = 0.016451, p-value = 0.9341
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.0020416, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_y[, column] and data_proc_y[, column]
+D = 0.0048645, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.0021199, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  test_y[, column] and data_proc_y[, column]
+D = 0.011351, p-value = 0.9991
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.0021199, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_y[, column] and data_proc_y[, column]
+D = 0.0060037, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.001764, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  test_y[, column] and data_proc_y[, column]
+D = 0.014009, p-value = 0.9846
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.001764, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_y[, column] and data_proc_y[, column]
+D = 0.0089901, p-value = 0.9978
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.0020609, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  test_y[, column] and data_proc_y[, column]
+D = 0.020977, p-value = 0.7337
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.0020609, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_y[, column] and data_proc_y[, column]
+D = 0.0070505, p-value = 1
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.0029117, p-value = 0.9996
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  test_y[, column] and data_proc_y[, column]
+D = 0.016451, p-value = 0.9341
+alternative hypothesis: two-sided
+
+
+	Two-sample Kolmogorov-Smirnov test
+
+data:  train_n[, column] and data_proc_n[, column]
+D = 0.0029117, p-value = 0.9996
+alternative hypothesis: two-sided
