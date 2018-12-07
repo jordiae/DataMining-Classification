@@ -8,6 +8,8 @@ from sklearn import preprocessing
 from sklearn.feature_selection import mutual_info_classif
 from sklearn.feature_selection import SelectKBest
 from sklearn.model_selection import GridSearchCV
+from imblearn.under_sampling import RandomUnderSampler  # doctest: +NORMALIZE_WHITESPACE
+from imblearn.over_sampling import RandomOverSampler  # doctest: +NORMALIZE_WHITESPACE
 import matplotlib.pyplot as plt  # per imprimir plots
 import numpy as np
 import utils
@@ -40,6 +42,9 @@ def main():
     f_scorer = make_scorer(f1_score, pos_label=0)
 
     (dades, X, y) = read_csv(url_learn)
+
+    rus = RandomOverSampler(sampling_strategy='auto', random_state=42)
+    X, y = rus.fit_resample(X, y)
 
     # Let's do a simple cross-validation: split data into training and test sets (test 30% of data)
     (X_train, X_test, y_train, y_test) = cva.train_test_split(X, y, test_size=.3, random_state=1)
@@ -83,8 +88,8 @@ def main():
         if i == 'y':
             continue
         plt.subplot(5, 4, 0 + contador + 1)
-        dades[dades['y'] == 0][i].plot.hist(bins=10)
-        dades[dades['y'] == 1][i].plot.hist(bins=10)
+        dades[dades['y'] == 0][i].plot.hist(bins=10, density=True)
+        dades[dades['y'] == 1][i].plot.hist(bins=10, density=True)
         contador += 1
     plt.show()
     # no he sacado ninguna conclusion xD
@@ -116,17 +121,17 @@ def main():
     # # OJO! d'aqui fins al final TRIGA MOOOOLT i utilitza tots els nuclis
     lr = []
     for ki in range(1, 30, 2):
-        cv_scores = cross_val_score(nb.KNeighborsClassifier(n_neighbors=ki), X=X_new, y=y, cv=10)
+        cv_scores = cross_val_score(nb.KNeighborsClassifier(n_neighbors=ki), X=X_new, y=y, cv=10, scoring=f_scorer, n_jobs=-1)
         lr.append(np.mean(cv_scores))
     plt.plot(range(1, 30, 2), lr, 'b', label='No weighting')
 
     lr = []
     for ki in range(1, 30, 2):
-        cv_scores = cross_val_score(nb.KNeighborsClassifier(n_neighbors=ki, weights='distance'), X=X_new, y=y, cv=10)
+        cv_scores = cross_val_score(nb.KNeighborsClassifier(n_neighbors=ki, weights='distance'), X=X_new, y=y, cv=10,scoring=f_scorer, n_jobs=-1)
         lr.append(np.mean(cv_scores))
     plt.plot(range(1, 30, 2), lr, 'r', label='Weighting')
     plt.xlabel('k')
-    plt.ylabel('Accuracy')
+    plt.ylabel('f1_score')
     plt.legend(loc='upper right')
     plt.grid()
     plt.tight_layout()
@@ -142,11 +147,13 @@ def main():
 
     # Ja tenim els millors parametres, ara hem de testejar-ho
     knc_test = nb.KNeighborsClassifier(n_neighbors=clf.best_params_['n_neighbors'], weights=clf.best_params_['weights'])
-    knc_test.fit(X, y)
     (dades_test, X_testing, y_testing) = read_csv(url_test)
-    print("Results without: ", knc_test.score(X_testing, y_testing))
+    scaler = preprocessing.StandardScaler().fit(X_testing)
+    X_testing_norm = scaler.transform(X_testing)
+    knc_test.fit(X2, y)  # X2 conte dades originals normalitzades
+    print("Results without: ", knc_test.score(X_testing_norm, y_testing))
     # More information with confussion matrix
-    y_testing_pred = knc_test.predict(X_testing)
+    y_testing_pred = knc_test.predict(X_testing_norm)
     print("Confusion Matrix: ")
     print(pd.DataFrame(confusion_matrix(y_testing, y_testing_pred, labels=[1, 0]),
                        index=['true:yes', 'true:no'], columns=['pred:yes', 'pred:no']))
