@@ -71,3 +71,74 @@ Report metrics:
    micro avg       0.90      0.90      0.90     12356
    macro avg       0.79      0.61      0.65     12356
 weighted avg       0.88      0.90      0.88     12356
+
+-------------------------------
+
+f-score (overSAMPLING)
+   age          job  marital      ...       nr.employed   y prev_contacted
+0   56    housemaid  married      ...            5191.0  no             no
+1   59       admin.  married      ...            5191.0  no             no
+2   41  blue-collar  married      ...            5191.0  no             no
+3   25     services   single      ...            5191.0  no             no
+4   29  blue-collar   single      ...            5191.0  no             no
+[5 rows x 21 columns]
+   age  job  marital       ...        nr.employed  y  prev_contacted
+0   56    3        1       ...             5191.0  0               0
+1   59    0        1       ...             5191.0  0               0
+2   41    1        1       ...             5191.0  0               0
+3   25    7        2       ...             5191.0  0               0
+4   29    1        2       ...             5191.0  0               0
+[5 rows x 21 columns]
+{'job': LabelEncoder(), 'marital': LabelEncoder(), 'education': LabelEncoder(), 'default': LabelEncoder(), 'housing': LabelEncoder(), 'loan': LabelEncoder(), 'contact': LabelEncoder(), 'month': LabelEncoder(), 'day_of_week': LabelEncoder(), 'poutcome': LabelEncoder(), 'y': LabelEncoder(), 'prev_contacted': LabelEncoder()}
+(28832, 20)
+(28832,)
+Score Cross-validation: 0.8569474301348446
+Confusion Matrix:
+          pred:yes  pred:no
+true:yes      7387      220
+true:no       1976     5768
+Report metrics:
+              precision    recall  f1-score   support
+           0       0.96      0.74      0.84      7744
+           1       0.79      0.97      0.87      7607
+   micro avg       0.86      0.86      0.86     15351
+   macro avg       0.88      0.86      0.86     15351
+weighted avg       0.88      0.86      0.86     15351
+StratifiedKfold K-cross-Validation
+0.6672626591274173
+Millorem knn, normalització:
+new accuracy: 0.6630359853083285
+Effect of irrelevant columns:
+Searching best K features plot...
+K best feature:18 f-score:0.6817641230083871
+Searching best parameters for KNN
+Best Params= {'n_neighbors': 1, 'weights': 'distance'} f-score= 0.8105697502836218
+   age       job  marital      ...       nr.employed   y prev_contacted
+0   57  services  married      ...            5191.0  no             no
+1   37  services  married      ...            5191.0  no             no
+2   40    admin.  married      ...            5191.0  no             no
+3   56  services  married      ...            5191.0  no             no
+4   45  services  married      ...            5191.0  no             no
+[5 rows x 21 columns]
+   age  job  marital       ...        nr.employed  y  prev_contacted
+0   57    7        1       ...             5191.0  0               0
+1   37    7        1       ...             5191.0  0               0
+2   40    0        1       ...             5191.0  0               0
+3   56    7        1       ...             5191.0  0               0
+4   45    7        1       ...             5191.0  0               0
+[5 rows x 21 columns]
+{'job': LabelEncoder(), 'marital': LabelEncoder(), 'education': LabelEncoder(), 'default': LabelEncoder(), 'housing': LabelEncoder(), 'loan': LabelEncoder(), 'contact': LabelEncoder(), 'month': LabelEncoder(), 'day_of_week': LabelEncoder(), 'poutcome': LabelEncoder(), 'y': LabelEncoder(), 'prev_contacted': LabelEncoder()}
+(12356, 20)
+(12356,)
+Results without:  0.8511654257041114
+Confusion Matrix:
+          pred:yes  pred:no
+true:yes       467      925
+true:no        914    10050
+Report metrics:
+              precision    recall  f1-score   support
+           0       0.92      0.92      0.92     10964
+           1       0.34      0.34      0.34      1392
+   micro avg       0.85      0.85      0.85     12356
+   macro avg       0.63      0.63      0.63     12356
+weighted avg       0.85      0.85      0.85     12356

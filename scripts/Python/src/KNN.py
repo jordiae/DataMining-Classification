@@ -78,7 +78,7 @@ def main():
     scaler = preprocessing.StandardScaler().fit(X)
     X2 = scaler.transform(X)
     cv_scores = cross_val_score(nb.KNeighborsClassifier(), X=X2, y=y, cv=cv, scoring=f_scorer, n_jobs=-1)
-    print("new accuracy: %s\n" % (np.mean(cv_scores)))
+    print("new f_score: %s\n" % (np.mean(cv_scores)))
     # Irrelevant columns
     print("Effect of irrelevant columns:\n")
     plt.subplots(figsize=(10, 10))
@@ -114,7 +114,7 @@ def main():
     plt.xticks(np.arange(0, 20, step=1))
     plt.plot(range(1, 21), original)
     plt.show()
-    print("K best feature:%s accuracy:%s\n" % (k_max, max(original)))
+    print("K best feature:%s f-score:%s\n" % (k_max, max(original)))
     # K best features es 19, sembla que hi ha una feature que esta afegint error
     X_new = X_new_best
     # # Buscarem els millors parametres PLOT:
@@ -143,7 +143,7 @@ def main():
     knc = nb.KNeighborsClassifier()
     clf = GridSearchCV(knc, param_grid=params, cv=cv, n_jobs=-1, scoring=f_scorer)  # If cv is integer, by default is Stratifyed
     clf.fit(X_new, y)
-    print("Best Params=", clf.best_params_, "Accuracy=", clf.best_score_)
+    print("Best Params=", clf.best_params_, "f-score=", clf.best_score_)
 
     # Ja tenim els millors parametres, ara hem de testejar-ho
     knc_test = nb.KNeighborsClassifier(n_neighbors=clf.best_params_['n_neighbors'], weights=clf.best_params_['weights'])
