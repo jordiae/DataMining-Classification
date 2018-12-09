@@ -1,0 +1,12 @@
+Results without:  0.9001294917449013
+Confusion Matrix:
+          pred:yes  pred:no
+true:yes       340     1052
+true:no        182    10782
+Report metrics:
+              precision    recall  f1-score   support
+           0       0.91      0.98      0.95     10964
+           1       0.65      0.24      0.36      1392
+   micro avg       0.90      0.90      0.90     12356
+   macro avg       0.78      0.61      0.65     12356
+weighted avg       0.88      0.90      0.88     12356

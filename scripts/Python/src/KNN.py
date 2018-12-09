@@ -39,11 +39,14 @@ def main():
     # Load digits dataset from scikit
     url_learn = "../../../data/learning/BankCleanLearn.csv"
     url_test = "../../../data/test/BankCleanTest.csv"
-    f_scorer = make_scorer(f1_score, pos_label=0)
+    f_scorer = make_scorer(f1_score, pos_label=1)
 
     (dades, X, y) = read_csv(url_learn)
 
-    rus = RandomOverSampler(sampling_strategy='auto', random_state=42)
+    # rus = RandomOverSampler(sampling_strategy='auto', random_state=42)
+    # X, y = rus.fit_resample(X, y)
+
+    rus = RandomUnderSampler(sampling_strategy='auto', random_state=42)
     X, y = rus.fit_resample(X, y)
 
     # Let's do a simple cross-validation: split data into training and test sets (test 30% of data)
@@ -74,7 +77,7 @@ def main():
     # MILLOREM EL KNN
     # Normalization in KNN
     print("Millorem knn, normalització: ")
-    # One way is to standarize all data mean 0, std 1
+    # # One way is to standarize all data mean 0, std 1
     scaler = preprocessing.StandardScaler().fit(X)
     X2 = scaler.transform(X)
     cv_scores = cross_val_score(nb.KNeighborsClassifier(), X=X2, y=y, cv=cv, scoring=f_scorer, n_jobs=-1)
@@ -119,34 +122,40 @@ def main():
     X_new = X_new_best
     # # Buscarem els millors parametres PLOT:
     # # OJO! d'aqui fins al final TRIGA MOOOOLT i utilitza tots els nuclis
-    lr = []
-    for ki in range(1, 30, 2):
-        cv_scores = cross_val_score(nb.KNeighborsClassifier(n_neighbors=ki), X=X_new, y=y, cv=10, scoring=f_scorer, n_jobs=-1)
-        lr.append(np.mean(cv_scores))
-    plt.plot(range(1, 30, 2), lr, 'b', label='No weighting')
+    colors = ['b','r','g','y','m','c']
+    contador = 0
+    for pi in range(1,4):
+        lr = []
+        for ki in range(1, 30, 2):
+            cv_scores = cross_val_score(nb.KNeighborsClassifier(n_neighbors=ki, p=pi), X=X_new, y=y, cv=10, scoring=f_scorer, n_jobs=-1)
+            lr.append(np.mean(cv_scores))
+        plt.plot(range(1, 30, 2), lr, colors[contador], label="No weighting p=%s" % pi)
+        contador += 1
+        lr = []
+        for ki in range(1, 30, 2):
+            cv_scores = cross_val_score(nb.KNeighborsClassifier(n_neighbors=ki, weights='distance', p=pi), X=X_new, y=y, cv=10,scoring=f_scorer, n_jobs=-1)
+            lr.append(np.mean(cv_scores))
+        plt.plot(range(1, 30, 2), lr, colors[contador], label="Weighting p=%s" % pi)
+        contador += 1
 
-    lr = []
-    for ki in range(1, 30, 2):
-        cv_scores = cross_val_score(nb.KNeighborsClassifier(n_neighbors=ki, weights='distance'), X=X_new, y=y, cv=10,scoring=f_scorer, n_jobs=-1)
-        lr.append(np.mean(cv_scores))
-    plt.plot(range(1, 30, 2), lr, 'r', label='Weighting')
     plt.xlabel('k')
     plt.ylabel('f1_score')
     plt.legend(loc='upper right')
     plt.grid()
     plt.tight_layout()
     plt.show()
-    #
+    # Results of the plot: Default parameters of Knn classifier p=2 weight uniform
     # Busquem els millors parametres amb un GridSearch
     print("Searching best parameters for KNN\n")
-    params = {'n_neighbors': list(range(1, 30, 2)), 'weights': ('distance', 'uniform')}
+    params = {'n_neighbors': list(range(1, 30, 2)), 'weights': ('distance', 'uniform'), 'p': list(range(1,4))}
     knc = nb.KNeighborsClassifier()
     clf = GridSearchCV(knc, param_grid=params, cv=cv, n_jobs=-1, scoring=f_scorer)  # If cv is integer, by default is Stratifyed
     clf.fit(X_new, y)
     print("Best Params=", clf.best_params_, "f-score=", clf.best_score_)
 
     # Ja tenim els millors parametres, ara hem de testejar-ho
-    knc_test = nb.KNeighborsClassifier(n_neighbors=clf.best_params_['n_neighbors'], weights=clf.best_params_['weights'])
+    knc_test = nb.KNeighborsClassifier(n_neighbors=clf.best_params_['n_neighbors'],
+                                       weights=clf.best_params_['weights'], p=clf.best_params_['p'])
     (dades_test, X_testing, y_testing) = read_csv(url_test)
     scaler = preprocessing.StandardScaler().fit(X_testing)
     X_testing_norm = scaler.transform(X_testing)
