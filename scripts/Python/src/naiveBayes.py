@@ -17,7 +17,7 @@ from sklearn.metrics import fbeta_score, make_scorer
 def read_csv(url):
     # Load digits dataset from scikit
     data = pd.read_csv(url, sep=";")
-    print(data.head())
+    #print(data.head())
 
     # HEM DE CONVERTIR LES CATEGORIQUES a numeriques!!
 
@@ -26,7 +26,7 @@ def read_csv(url):
     y = data['y']  # Target
     x = pd.get_dummies(x)
     y = pd.get_dummies(y)['yes']
-    print(x)
+    #print(x)
     return data, x, y
 
 def filterp(th,ProbClass1):
@@ -40,12 +40,9 @@ def filterp(th,ProbClass1):
 def main():
     # Load digits dataset from scikit
     url_learn = "../../../data/learning/BankCleanLearn.csv"
-    #url_test = "../../../data/test/BankCleanTest.csv"
+    url_test = "../../../data/test/BankCleanTest.csv"
 
-    (dades, X, y) = read_csv(url_learn)
-
-    #30% of data will be used for testing (.3)
-    (X_train, X_test, y_train, y_test) = cva.train_test_split(X, y, test_size=.3, random_state=1)
+    (dadesTrain, X_train, y_train) = read_csv(url_learn)
 
     # Create a Naive Bayes classifier object
     clf = GaussianNB()
@@ -53,9 +50,9 @@ def main():
 
     # We do a 10 fold crossvalidation with 10 iterations
     kf = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
-    for train_index, test_index in kf.split(X, y):
-        X_train2, X_test2 = X.iloc[train_index], X.iloc[test_index]
-        y_train2, y_test2 = y[train_index], y[test_index] # .iloc??
+    for train_index, test_index in kf.split(X_train, y_train):
+        X_train2, X_test2 = X_train.iloc[train_index], X_train.iloc[test_index]
+        y_train2, y_test2 = y_train[train_index], y_train[test_index] # .iloc??
 
         # Train with the training data of the iteration
         clf.fit(X_train2, y_train2)
@@ -98,6 +95,9 @@ def main():
     print("\n classification report on learning set:\n",classification_report(y_train, pred))
 
     # Obtain probabilities for data on test set
+
+    (dadesTrain, X_test, y_test) = read_csv(url_test)
+
     probs = clf.predict_proba(X_test)
     # Generate predictions using probabilities and threshold found on 10 folds cross-validation
     pred = filterp(thdef,probs[:,1])
