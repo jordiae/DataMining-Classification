@@ -88,6 +88,15 @@ def main():
 
     # Train a classifier with the whole training data
     clf.fit(X_train, y_train)
+
+    # Obtain probabilities for data on learning set
+    probs = clf.predict_proba(X_train)
+    # Generate predictions using probabilities and threshold found on 10 folds cross-validation
+    pred = filterp(thdef,probs[:,1])
+    # Print results with this prediction vector
+    print("\n confusion matrix on learning set:\n",confusion_matrix(y_train, pred))
+    print("\n classification report on learning set:\n",classification_report(y_train, pred))
+
     # Obtain probabilities for data on test set
     probs = clf.predict_proba(X_test)
     # Generate predictions using probabilities and threshold found on 10 folds cross-validation
