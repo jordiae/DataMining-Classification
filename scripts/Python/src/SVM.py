@@ -116,10 +116,7 @@ def loaddata():
     print(classification_report(y1_train, pred))
     print("Confusion matrix on train set:\n",confusion_matrix(y1_train, pred))    
     
-    pred = clf.predict(X1_test)
-    print("\n** Results for Plain SVM linear with ratio for class 1 set to 10")
-    print(classification_report(y_test, pred))
-    print("Confusion matrix on test set:\n",confusion_matrix(y_test, pred))
+    
     
     
     #QUADRATIC
@@ -137,11 +134,6 @@ def loaddata():
     print("\n** Results for Plain SVM Quadratic with ratio for class 1 set to 10")
     print(classification_report(y2_train, pred))
     print("Confusion matrix on train set:\n",confusion_matrix(y2_train, pred))    
-    
-    pred = clf.predict(X2_test)
-    print("\n** Results for Plain SVM Quadratic with ratio for class 1 set to 10")
-    print(classification_report(y_test, pred))
-    print("Confusion matrix on test set:\n",confusion_matrix(y_test, pred))    
     
     
     #RBF
