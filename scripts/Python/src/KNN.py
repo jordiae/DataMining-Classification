@@ -164,7 +164,7 @@ def main():
     clf.fit(X_new, y)
     print("Best Params=", clf.best_params_, "f-score=", clf.best_score_)
 
-    #Ja tenim els millors parametres, ara hem de testejar-ho
+    
     #knc_test = nb.KNeighborsClassifier(n_neighbors=29,
     #                                   weights='uniform', p=3)
     (dades_test, X_testing, y_testing) = read_csv(url_test)
