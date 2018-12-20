@@ -165,20 +165,20 @@ def main():
     print("Best Params=", clf.best_params_, "f-score=", clf.best_score_)
 
     #Ja tenim els millors parametres, ara hem de testejar-ho
-    knc_test = nb.KNeighborsClassifier(n_neighbors=29,
-                                       weights='uniform', p=3)
+    #knc_test = nb.KNeighborsClassifier(n_neighbors=29,
+    #                                   weights='uniform', p=3)
     (dades_test, X_testing, y_testing) = read_csv(url_test)
     scaler = preprocessing.StandardScaler().fit(X_testing)
     X_testing_norm = scaler.transform(X_testing)
-    knc_test.fit(X2, y)  # X2 conte dades originals normalitzades
-    print("Results without: ", knc_test.score(X_testing_norm, y_testing))
+    #knc_test.fit(X2, y)  # X2 conte dades originals normalitzades
+    #print("Results without: ", knc_test.score(X_testing_norm, y_testing))
     # More information with confussion matrix
-    y_testing_pred = knc_test.predict(X_testing_norm)
-    print("Confusion Matrix: ")
-    print(pd.DataFrame(confusion_matrix(y_testing, y_testing_pred, labels=['yes', 'no']),
-                       index=['true:yes', 'true:no'], columns=['pred:yes', 'pred:no']))
-    print("\nReport metrics: ")
-    print(metrics.classification_report(y_testing, y_testing_pred))
+    #y_testing_pred = knc_test.predict(X_testing_norm)
+    #print("Confusion Matrix: ")
+    #print(pd.DataFrame(confusion_matrix(y_testing, y_testing_pred, labels=['yes', 'no']),
+     #                  index=['true:yes', 'true:no'], columns=['pred:yes', 'pred:no']))
+    #print("\nReport metrics: ")
+    #print(metrics.classification_report(y_testing, y_testing_pred))
 
    # clf = GaussianNB()
 
