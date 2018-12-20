@@ -164,24 +164,6 @@ def main():
     clf.fit(X_new, y)
     print("Best Params=", clf.best_params_, "f-score=", clf.best_score_)
 
-    
-    #knc_test = nb.KNeighborsClassifier(n_neighbors=29,
-    #                                   weights='uniform', p=3)
-    (dades_test, X_testing, y_testing) = read_csv(url_test)
-    scaler = preprocessing.StandardScaler().fit(X_testing)
-    X_testing_norm = scaler.transform(X_testing)
-    #knc_test.fit(X2, y)  # X2 conte dades originals normalitzades
-    #print("Results without: ", knc_test.score(X_testing_norm, y_testing))
-    # More information with confussion matrix
-    #y_testing_pred = knc_test.predict(X_testing_norm)
-    #print("Confusion Matrix: ")
-    #print(pd.DataFrame(confusion_matrix(y_testing, y_testing_pred, labels=['yes', 'no']),
-     #                  index=['true:yes', 'true:no'], columns=['pred:yes', 'pred:no']))
-    #print("\nReport metrics: ")
-    #print(metrics.classification_report(y_testing, y_testing_pred))
-
-   # clf = GaussianNB()
-
     clf = nb.KNeighborsClassifier(n_neighbors=29,
                                   weights='uniform', p=3)
     """""
@@ -232,6 +214,9 @@ def main():
     print("Training...")
     clf.fit(X2, y)
     # Obtain probabilities for data on test set
+    (dades_test, X_testing, y_testing) = read_csv(url_test)
+    scaler = preprocessing.StandardScaler().fit(X_testing)
+    X_testing_norm = scaler.transform(X_testing)
     print("proba...")
     probs = clf.predict_proba(X_testing_norm)
     # Generate predictions using probabilities and threshold found on 10 folds cross-validation
